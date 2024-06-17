@@ -1,33 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image1 from "../../assets/assets/image/image1.jpg";
 import * as pkg from "react-icons/fa";
 import * as pkgmd from "react-icons/md";
 import { Modal, Button } from "flowbite-react";
 import UseAxiosPriv from "../../middleware/AxiosPriv.jsx";
 
-function CardSesidb({ data, err }) {
+function CardSesiHst({ idUser }) {
   const { FaStar } = pkg;
   const { MdWorkHistory } = pkgmd;
   const [openModal, setOpenModal] = useState(false);
   const axiosJWT = UseAxiosPriv();
-  const handleBayar = async (id) => {
-    setTimeout(() => {
-      axiosJWT
-        .patch(`${import.meta.env.VITE_API_URL}/api/booking/${id}`)
-        .catch((err) => err);
-      setOpenModal(false);
-    }, 500);
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
-  };
+  const [data, setData] = useState([]);
+  const [err, setErr] = useState("");
+  useEffect(() => {
+    const fetch = async () => {
+      setTimeout(async () => {
+        try {
+          await axiosJWT
+            .get(`${import.meta.env.VITE_API_URL}/api/booking/all/${idUser}`, {
+              withCredentials: true,
+            })
+            .then((res) => setData(res?.data.data))
+            .catch((err) => setErr(err?.response.data.Message));
+        } catch (error) {
+          // Tangani kesalahan jika terjadi
+          console.log("Error fetching data:", error);
+        }
+      }, 1000);
+    };
+    fetch();
+  }, []);
   return (
     <>
       <div>
         {/* card */}
         {data?.map(
           (key, index) =>
-            key.history === false && (
+            key.history === true && (
               <div className="w-full" key={index}>
                 <div className="grid lg:flex border border-stone-400 rounded-2xl bg-stone-50 p-4 gap-3 w-full justify-between">
                   <div className="grid w-full lg:w-96">
@@ -47,6 +56,7 @@ function CardSesidb({ data, err }) {
                   </div>
 
                   {/* data dokter */}
+
                   <div className="flex p-2 border border-stone-400 rounded-3xl gap-4 md:min-w-72">
                     <img
                       src={Image1}
@@ -84,47 +94,14 @@ function CardSesidb({ data, err }) {
                       <p>Rp.</p>
                       <p>{key.biaya}</p>
                     </div>
-
                     {/* button */}
                     <Button
-                      onClick={() => {
-                        setOpenModal(true);
-                      }}
+                      onClick={() => setOpenModal(true)}
+                      style={{ pointerEvents: "none" }}
                       className="bg-primary-700 text-stone-100 font-semibold text-center  rounded-xl hover:bg-primary-800 w-full my-2"
                     >
-                      bayar
+                      Terbayar
                     </Button>
-
-                    {/* Modal */}
-                    <Modal dismissible show={openModal}>
-                      <Modal.Header>Pilih Metode Pembayaran</Modal.Header>
-                      <Modal.Body className="grid gap-2">
-                        <div className="space-y-6 border border-stone-300 rounded-lg ">
-                          <Button
-                            onClick={() => handleBayar(key.uuid)}
-                            className="text-stone-700 w-full hover:bg-stone-200"
-                          >
-                            E-Wallet A
-                          </Button>
-                        </div>
-                        <div className="space-y-6 border border-stone-300 rounded-lg ">
-                          <Button
-                            onClick={() => handleBayar(key.uuid)}
-                            className="text-stone-700 w-full hover:bg-stone-200"
-                          >
-                            M-Banking A
-                          </Button>
-                        </div>
-                        <div className="space-y-6 border border-stone-300 rounded-lg ">
-                          <Button
-                            onClick={() => handleBayar(key.uuid)}
-                            className="text-stone-700 w-full hover:bg-stone-200"
-                          >
-                            M-Banking B
-                          </Button>
-                        </div>
-                      </Modal.Body>
-                    </Modal>
                   </div>
                 </div>
               </div>
@@ -136,4 +113,4 @@ function CardSesidb({ data, err }) {
   );
 }
 
-export default CardSesidb;
+export default CardSesiHst;

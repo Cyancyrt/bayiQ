@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RootLayout from "./layout/RootLayout.jsx";
 import Edukasi from "./pages/Edukasi.jsx";
 import Konsultasi from "./pages/Konsultasi.jsx";
@@ -29,51 +29,63 @@ import AppDashboard from "./app/AppDashboard.jsx";
 import AppCommunity from "./app/AppCommunity.jsx";
 import AppProfile from "./app/AppProfile.jsx";
 
+//refreshToken hit
+import PersLog from "./middleware/userAuth.jsx";
+
+//cek authentikasi
+import CekAuth from "./middleware/CheckAuth.jsx";
+
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<RootLayout />}>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/edukasi" element={<Edukasi />} />
-                    <Route path="/konsultasi" element={<Konsultasi />} />
-                    <Route path="/pilihsesi" element={<PilihSesi />} />
-                    <Route path="/pilihsesi/konfirmasi" element={<Konfirm />} />
-                    <Route path="/informasi" element={<Informasi />} />
-                    <Route path="/detailbidan" element={<DetailBidan />} />
-                    <Route path="/detaildokter" element={<DetailDokter />} />
-                    <Route path="/detailtempat" element={<DetailTempat />} />
-                    <Route path="/komunitas" element={<Komunitas />} />
-                    <Route path="/testimoni" element={<Testimoni />} />
-                    <Route path="/roadmap" element={<Roadmap />} />
-                    <Route path="/article/" element={<DetailEdu />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="*" element={<NotFound />} />{" "}
-                </Route>
-                <Route path="/" element={<LoginLayout />}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
-                </Route>
-                <Route path="/admin/" element={<AdminLayout />}>
-                    <Route path="/admin/dashboard" element={<AdmDashboard />} />
-                </Route>
-                <Route path="/dokter/" element={<DrinLayout />}>
-                    <Route path="/dokter/dashboard" element={<DrDashboard />} />
-                </Route>
-                <Route path="/hospital/" element={<DrinLayout />}>
-                    <Route
-                        path="/hospital/dashboard"
-                        element={<DrDashboard />}
-                    />
-                </Route>
-                <Route path="/app/" element={<AppLayout />}>
-                    <Route path="/app/" element={<AppDashboard />} />
-                    <Route path="/app/community" element={<AppCommunity />} />
-                    <Route path="/app/profile" element={<AppProfile />} />
-                </Route>
-            </Routes>
-        </Router>
-    );
+  return (
+    <Routes>
+      {/* multi route */}
+      <Route element={<PersLog />}>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/edukasi" element={<Edukasi />} />
+          <Route path="/konsultasi" element={<Konsultasi />} />
+          <Route path="/pilihsesi" element={<PilihSesi />} />
+          <Route element={<CekAuth />}>
+            <Route path="pilihsesi/konfirmasi/:id" element={<Konfirm />} />
+          </Route>
+          <Route path="/informasi" element={<Informasi />} />
+          <Route path="detailbidan/:id" element={<DetailBidan />} />
+          <Route path="detaildokter/:id" element={<DetailDokter />} />
+          <Route path="detailtempat/:id" element={<DetailTempat />} />
+          <Route path="/komunitas" element={<Komunitas />} />
+          <Route path="/testimoni" element={<Testimoni />} />
+          <Route path="/roadmap" element={<Roadmap />} />
+          <Route path="/article/:id" element={<DetailEdu />} />
+          <Route path="dashboard/:id" element={<Dashboard />} />{" "}
+          <Route path="*" element={<NotFound />} />{" "}
+        </Route>
+      </Route>
+
+      {/* user route */}
+      <Route path="/" element={<LoginLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Route>
+
+      {/* admin route */}
+      <Route path="/admin/" element={<AdminLayout />}>
+        <Route path="/admin/dashboard" element={<AdmDashboard />} />
+      </Route>
+      <Route path="/dokter/" element={<DrinLayout />}>
+        <Route path="/dokter/dashboard" element={<DrDashboard />} />
+      </Route>
+      <Route path="/hospital/" element={<DrinLayout />}>
+        <Route path="/hospital/dashboard" element={<DrDashboard />} />
+      </Route>
+
+      {/* mobile */}
+      <Route path="/app/" element={<AppLayout />}>
+        <Route path="/app/" element={<AppDashboard />} />
+        <Route path="/app/community" element={<AppCommunity />} />
+        <Route path="/app/profile" element={<AppProfile />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
