@@ -42,9 +42,9 @@ function LoginForm() {
           signInWithEmailAndPassword(appAuth, data.email, data.password)
             .then((res) => {
               localStorage.setItem("userToken", res.user.accessToken);
-              navigate("/");
             })
             .catch((err) => console.error(err));
+          navigate(`/app/${res.data.session}`);
         })
         .catch((err) => {
           setErr({ isvalidate: true, pesan: err.response.data.Message });

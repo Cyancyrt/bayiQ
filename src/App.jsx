@@ -25,10 +25,13 @@ import AdmDashboard from "./admin/AdmDashboard.jsx";
 import DrDashboard from "./dokter/DrDashboard.jsx";
 import DrinLayout from "./layout/DrLayout.jsx";
 import AppLayout from "./layout/AppLayout.jsx";
-import AppDashboard from "./app/AppDashboard.jsx";
 import AppCommunity from "./app/AppCommunity.jsx";
 import AppProfile from "./app/AppProfile.jsx";
 
+import AppHome from "./app/AppHome.jsx";
+import AppProfileEdit from "./app/Profile/AppProfileEdit.jsx";
+import AppNotif from "./app/AppNotif.jsx";
+import AppMessage from "./app/AppMessage.jsx";
 //refreshToken hit
 import PersLog from "./middleware/userAuth.jsx";
 
@@ -48,14 +51,15 @@ function App() {
           <Route element={<CekAuth />}>
             <Route path="pilihsesi/konfirmasi/:id" element={<Konfirm />} />
           </Route>
+          <Route path="/pilihsesi/konfirmasi" element={<Konfirm />} />
           <Route path="/informasi" element={<Informasi />} />
-          <Route path="detailbidan/:id" element={<DetailBidan />} />
-          <Route path="detaildokter/:id" element={<DetailDokter />} />
-          <Route path="detailtempat/:id" element={<DetailTempat />} />
+          <Route path="/detailbidan" element={<DetailBidan />} />
+          <Route path="/detaildokter" element={<DetailDokter />} />
+          <Route path="/detailtempat" element={<DetailTempat />} />
           <Route path="/komunitas" element={<Komunitas />} />
           <Route path="/testimoni" element={<Testimoni />} />
           <Route path="/roadmap" element={<Roadmap />} />
-          <Route path="/article/:id" element={<DetailEdu />} />
+          <Route path="/article/:id" element={<DetailEdu />} />{" "}
           <Route path="dashboard/:id" element={<Dashboard />} />{" "}
           <Route path="*" element={<NotFound />} />{" "}
         </Route>
@@ -79,10 +83,15 @@ function App() {
       </Route>
 
       {/* mobile */}
-      <Route path="/app/" element={<AppLayout />}>
-        <Route path="/app/" element={<AppDashboard />} />
-        <Route path="/app/community" element={<AppCommunity />} />
-        <Route path="/app/profile" element={<AppProfile />} />
+      <Route element={<PersLog />}>
+        <Route path="/app/" element={<AppLayout />}>
+          <Route path="/app/:id" element={<AppHome />} />
+          <Route path="/app/notification" element={<AppNotif />} />
+          <Route path="/app/message" element={<AppMessage />} />
+          <Route path="/app/community" element={<AppCommunity />} />
+          <Route path="/app/profile/:id" element={<AppProfile />} />
+          <Route path="/app/profile/edit" element={<AppProfileEdit />} />
+        </Route>
       </Route>
     </Routes>
   );

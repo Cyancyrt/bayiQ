@@ -41,7 +41,7 @@ const AdmSidebar = ({ isSidebarOpen }) => {
                     <Sidebar.Items className="dark:bg-gray-800">
                         <Sidebar.ItemGroup className="dark:bg-gray-800">
                             <Sidebar.Item
-                                href="/admin/dashboard/"
+                                href="/admin/"
                                 icon={HiHome}
                                 className="dark:bg-gray-700"
                             >
@@ -104,7 +104,7 @@ const AdmNavBar = ({ toggleSidebar }) => {
             <div className="w-full p-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                        <Navbar.Brand href="/admin/dashboard">
+                        <Navbar.Brand href="/admin/">
                             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                                 Super Admin
                             </span>

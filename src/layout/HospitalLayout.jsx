@@ -41,7 +41,7 @@ const HospitalLayout = ({ isSidebarOpen }) => {
                     <Sidebar.Items className="">
                         <Sidebar.ItemGroup className="">
                             <Sidebar.Item
-                                href="/hospital/dashboard/"
+                                href="/hospital/"
                                 icon={HiHome}
                                 className=""
                             >
@@ -99,7 +99,7 @@ const DrNavBar = ({ toggleSidebar }) => {
             <div className="w-full p-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                        <Navbar.Brand href="/hospital/dashboard">
+                        <Navbar.Brand href="/hospital/">
                             <span className="self-center whitespace-nowrap text-2xl font-semibold ">
                                 Admin hospital
                             </span>
