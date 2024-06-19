@@ -44,7 +44,8 @@ function LoginForm() {
               localStorage.setItem("userToken", res.user.accessToken);
             })
             .catch((err) => console.error(err));
-          navigate(`/app/${res.data.session}`);
+          navigate("/");
+          // navigate(`/app/${res.data.session}`);
         })
         .catch((err) => {
           setErr({ isvalidate: true, pesan: err.response.data.Message });

@@ -27,6 +27,9 @@ import DrinLayout from "./layout/DrLayout.jsx";
 import AppLayout from "./layout/AppLayout.jsx";
 import AppCommunity from "./app/AppCommunity.jsx";
 import AppProfile from "./app/AppProfile.jsx";
+import AppComDetail from "./app/community/AppComDetail.jsx";
+import AppLayoutD from "./layout/AppLayoutD.jsx";
+import AppMessageDoctor from "./app/Message/examplechat/AppMessageDoctor.jsx";
 
 import AppHome from "./app/AppHome.jsx";
 import AppProfileEdit from "./app/Profile/AppProfileEdit.jsx";
@@ -85,12 +88,18 @@ function App() {
       {/* mobile */}
       <Route element={<PersLog />}>
         <Route path="/app/" element={<AppLayout />}>
-          <Route path="/app/:id" element={<AppHome />} />
+          <Route path="/app/" element={<AppHome />} />
           <Route path="/app/notification" element={<AppNotif />} />
-          <Route path="/app/message" element={<AppMessage />} />
           <Route path="/app/community" element={<AppCommunity />} />
-          <Route path="/app/profile/:id" element={<AppProfile />} />
+          <Route path="/app/community/kariadi" element={<AppComDetail />} />
+          <Route path="/app/profile" element={<AppProfile />} />
           <Route path="/app/profile/edit" element={<AppProfileEdit />} />
+        </Route>
+        <Route path="/app/" element={<AppLayoutD />}>
+          <Route path="/app/message" element={<AppMessage />}>
+            <Route path="/app/message/michie" element={<AppMessageDoctor />} />
+            <Route path="/app/message/kariadi" element={<AppMessageDoctor />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

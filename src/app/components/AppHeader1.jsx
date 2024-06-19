@@ -19,7 +19,7 @@ function BackButton() {
 function AppHeader1({ pageTitle }) {
     return (
         <>
-            <header className="flex items-center border-b py-2 border-b-stone-300">
+            <header className="flex items-center py-2 ">
                 <BackButton />
                 {/* Tombol kembali */}
                 <h1>{pageTitle}</h1>

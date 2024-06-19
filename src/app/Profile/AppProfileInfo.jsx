@@ -2,7 +2,6 @@
 import React from "react";
 
 function AppProfileInfo({ data }) {
-  console.log(data);
   return (
     <>
       <div className="grid gap-1">
